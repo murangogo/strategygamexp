@@ -38,7 +38,6 @@ function HomePage() {
     }else{
       alert(data.error);
     }
-    navigate(`/chess/?id=${gameId}&typech=partner&username=${username}`);
   };
 
   return (
