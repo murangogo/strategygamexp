@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams } from "react-router-dom";
 
 const items = [
@@ -86,14 +86,83 @@ function Board({setclickinfo}) {
   );
 }
 
+function ButtonColumn({ label1, label2, onClick1, onClick2 }) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', marginRight: '10px' }}>
+        <button onClick={onClick1}>{label1}</button>
+        <button onClick={onClick2} style={{ marginTop: '10px' }}>{label2}</button>
+      </div>
+    );
+  }
+  
+
 // 主ChessPage组件
 function ChessPage() {
 const [searchParams] = useSearchParams();
 const [clickinfo,setclickinfo] = useState('');
+
+const [displayimg,setdisplayimg] = useState('icons/1_1');
+
+const [displayimgid,setdisplayimgid] = useState(0);
+const [displayimgidbf,setdisplayimgidbf] = useState(1);
+
 const gameid = searchParams.get("id");
 const chara = searchParams.get("typech");
 const username = searchParams.get("username");
-const [selectedItem, setSelectedItem] = useState(null);
+
+const [selectedItem, setSelectedItem] = useState(0);
+
+const chooseitem = (index) =>{
+    setSelectedItem(index);
+    setdisplayimgid(0);
+    setdisplayimg(`icons/${(index+1)}_1`);
+    switch(index+1){
+        case 1:setdisplayimgidbf(1);break;
+        case 2:setdisplayimgidbf(2);break;
+        case 3:setdisplayimgidbf(4);break;
+        case 4:setdisplayimgidbf(2);break;
+        case 5:setdisplayimgidbf(1);break;
+        case 6:setdisplayimgidbf(4);break;
+        case 7:setdisplayimgidbf(2);break;
+        case 8:setdisplayimgidbf(8);break;
+        case 9:setdisplayimgidbf(4);break;
+        case 10:setdisplayimgidbf(8);break;
+        case 11:setdisplayimgidbf(4);break;
+        case 12:setdisplayimgidbf(4);break;
+        case 13:setdisplayimgidbf(8);break;
+        case 14:setdisplayimgidbf(4);break;
+        case 15:setdisplayimgidbf(2);break;
+        case 16:setdisplayimgidbf(8);break;
+        case 17:setdisplayimgidbf(4);break;
+        case 18:setdisplayimgidbf(4);break;
+        case 19:setdisplayimgidbf(8);break;
+        case 20:setdisplayimgidbf(1);break;
+        case 21:setdisplayimgidbf(8);
+    }
+    console.log(`icons/${(index+1)}_1`);
+}
+  
+  const okupload = () => {
+    console.log("Button 2 clicked");
+  };
+  
+  const stopplay = () => {
+    console.log("Button 3 clicked");
+  };
+  
+  const belose = () => {
+    console.log("Button 4 clicked");
+  };
+
+  const changeimg = () => {
+    console.log('前id'+displayimgid+',displayimgidbf = '+displayimgidbf);
+    const newDisplayImgId = (displayimgid + 1) % displayimgidbf;
+    setdisplayimgid(newDisplayImgId);
+    console.log('后id'+newDisplayImgId);
+    setdisplayimg('icons/'+(selectedItem+1)+'_'+(newDisplayImgId+1));
+    console.log('展示icons/'+(selectedItem+1)+'_'+(newDisplayImgId+1));
+  };
+  
 
   return (
     <div className="chess-page">
@@ -101,6 +170,25 @@ const [selectedItem, setSelectedItem] = useState(null);
       <p>房间号：{gameid} 角色：{chara} 你是：{username}</p>
       <p>你点了{clickinfo}</p>
       <Board setclickinfo={setclickinfo}/>
+
+        <div style={{ display: 'flex', marginTop: '10px' }}>
+
+        <img src={require('./'+displayimg+'.png')} style={ {marginRight: '5px'}}/>
+
+        <ButtonColumn 
+        label1="棋子变换" 
+        label2="确定下棋" 
+        onClick1={changeimg} 
+        onClick2={okupload} 
+        />
+        <ButtonColumn 
+        label1="停止下棋" 
+        label2="认输" 
+        onClick1={stopplay} 
+        onClick2={belose} 
+        />
+        </div>
+      
       <div style={{width: 'auto', height: '20px'} } >
         <div style={{ display: 'flex', overflowX: 'auto', marginTop: '10px'}}>
             {items.map((item, index) => (
@@ -108,11 +196,14 @@ const [selectedItem, setSelectedItem] = useState(null);
                 key={index}
                 icon={require('./'+item.icon+'.png')}
                 isSelected={selectedItem === index}
-                onClick={() => setSelectedItem(index)}
+                onClick={() => {chooseitem(index)}}
             />
             ))}
         </div>
       </div>
+      
+      
+
     </div>
   );
 }
