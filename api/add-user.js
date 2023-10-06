@@ -15,6 +15,7 @@ export default async function handler(request, response) {
   } catch (error) {
     return response.status(500).json({ error:error.message });
   }
-  const uslis = await sql`SELECT * FROM users;`;
+  db.none('SELECT * FROM users;');
+  const uslis = await db.none('SELECT * FROM users;');
   return response.status(200).json({ uslis });
 }
