@@ -29,7 +29,15 @@ function HomePage() {
     console.log('查看历史棋局');
   };
 
-  const handleJoinGameConfirm = () => {
+  const handleJoinGameConfirm = async () => {
+    const response = await fetch(`/api/joinchess?username=${username}&gameid=${gameId}`);
+    const data = await response.json();
+    if(response.ok){
+      alert(data.message);
+      navigate(`/chess/?id=${data.idnum}&typech=creator&username=${username}`)
+    }else{
+      alert(data.error);
+    }
     navigate(`/chess/?id=${gameId}&typech=partner&username=${username}`);
   };
 
