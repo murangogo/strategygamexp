@@ -9,12 +9,19 @@ export default async function handler(request, response) {
         throw new Error('非法加入。');
     }
 
-    await db.none(
-        'UPDATE chessdb SET partner = $1 WHERE id = $2', 
-        [username, gameid]
+    const num = await db.one(
+        'SELECT COUNT(*) AS count FROM chessdb WHERE id = $1;',[gameid]
     );
 
-    return response.status(200).json({ message:'加入成功。'});
+    if(num.count==0){
+        throw new Error('房间号不存在。');
+    }else{
+        await db.none(
+            'UPDATE chessdb SET partner = $1 WHERE id = $2;', 
+            [username, gameid]
+        );
+        return response.status(200).json({ message:'加入成功。'});
+    }
 } catch (error) {
     return response.status(500).json({ error:error.message });
   }

@@ -7,8 +7,10 @@ function HomePage() {
   const username = searchParams.get("username");
   const [showJoinGame, setShowJoinGame] = useState(false);
   const [gameId, setGameId] = useState('');
+  const [statusinfo, setstatusinfo] = useState('欢迎');
   const navigate = useNavigate();
   const handleCreateGame = async () => {
+    setstatusinfo('正在创建棋局，请稍候...');
     const response = await fetch(`/api/createchess?username=${username}`);
     const data = await response.json();
     if(response.ok){
@@ -16,6 +18,7 @@ function HomePage() {
       navigate(`/chess/?id=${data.idnum}&typech=creator&username=${username}`)
     }else{
       alert(data.error);
+      setstatusinfo(data.error);
     }
   };
 
@@ -30,19 +33,26 @@ function HomePage() {
   };
 
   const handleJoinGameConfirm = async () => {
+    if (!gameId || gameId.trim() === '') {
+      setstatusinfo('byd你还没输呢。');
+  }else{
+    setstatusinfo('尝试加入中，请稍候...');
     const response = await fetch(`/api/joinchess?username=${username}&gameid=${gameId}`);
     const data = await response.json();
     if(response.ok){
       alert(data.message);
-      navigate(`/chess/?id=${data.idnum}&typech=creator&username=${username}`)
+      navigate(`/chess/?id=${gameId}&typech=creator&username=${username}`)
     }else{
       alert(data.error);
+      setstatusinfo(data.error);
     }
-  };
+  }
+};
 
   return (
     <div className="app">
-      <h1>五子棋</h1>
+      <h1>The Strategy Game Online</h1>
+      <p>{statusinfo}</p>
       <button onClick={handleCreateGame}>创建棋局</button>
       <button onClick={handleJoinGame}>加入棋局</button>
       {showJoinGame && (
