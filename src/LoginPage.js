@@ -21,15 +21,13 @@ function LoginPage() {
       setErrorMessage('正在登录，请稍候...');
       const response = await fetch(`/api/checkusers?username=${username}`);
       const data = await response.json();
-
       if (data.error) {
         throw new Error(data.error);
       }
-
       if (data.password === password) {
         navigate('/home');  // 跳转到主页面
       } else {
-        setErrorMessage('密码不正确');
+        setErrorMessage('密码不正确。');
       }
    } catch (error) {
      setErrorMessage(error.message || '登录失败');
