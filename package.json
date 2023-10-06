@@ -38,8 +38,6 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@types/pg-promise": "^5.4.3",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.2.2"
+    "@types/pg-promise": "^5.4.3"
   }
 }
