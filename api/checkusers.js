@@ -6,7 +6,7 @@ export default async function getuserpw(request, response) {
 
     // 检查是否提供了用户名
     if (!inputUsername || inputUsername.trim() === '') {
-      throw new Error('需要用户名');
+      throw new Error('需要用户名。');
   }
 
     // 查询用户名对应的密码

@@ -25,7 +25,7 @@ function LoginPage() {
         throw new Error(data.error);
       }
       if (data.password === password) {
-        navigate('/home');  // 跳转到主页面
+        navigate(`/home?username=${username}`);  // 跳转到主页面
       } else {
         setErrorMessage('密码不正确。');
       }
