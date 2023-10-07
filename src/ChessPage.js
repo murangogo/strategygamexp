@@ -74,7 +74,7 @@ function Item({ label, isSelected, onClick, icon }) {
 
 // Board组件，棋盘
 function Board({setclickinfo}) {
-  const { board,setBoard,selectedItem,displayimgid } = useContext(PollingContext);
+  const { copyarray,board,setBoard,selectedItem,displayimgid } = useContext(PollingContext);
 
   //判断board
   console.log("这是board组件。");
@@ -83,23 +83,26 @@ function Board({setclickinfo}) {
   //点击某个位置
   const handleCellClick = (row, col) => {
     setclickinfo(`${row}, ${col}`);
-    setBoard(Array.from(copyarray));
+    setBoard(JSON.parse(JSON.stringify(copyarray)));
+    console.log("copyarray："+copyarray);
+    const boardtemple = JSON.parse(JSON.stringify(copyarray));
+    console.log(`使用的sele=${(selectedItem+1)}，状态为${(displayimgid+1)}`);
     switch(selectedItem+1){
       case 1:
-        board[row][col] = mychara+2;
+        boardtemple[row][col] = mychara+2;
         break;
       case 2:
         switch(displayimgid+1){
           case 1: 
           if((col+1)<size){
-            board[row][col] = mychara + 2;
-            board[rwo][col+1] = mychara + 2;
+            boardtemple[row][col] = mychara + 2;
+            boardtemple[row][col+1] = mychara + 2;
           }
           break;
           case 2:
           if((row+1)<size){
-            board[row][col] = mychara + 2;
-            board[rwo+1][col] = mychara + 2;
+            boardtemple[row][col] = mychara + 2;
+            boardtemple[row+1][col] = mychara + 2;
           }
           break;
         }
@@ -108,30 +111,30 @@ function Board({setclickinfo}) {
         switch(displayimgid){
           case 1:
             if((row+1<size)&&(col+1<size)){
-              board[row][col] = mychara + 2;
-              board[rwo+1][col] = mychara + 2;
-              board[rwo+1][col+1] = mychara + 2;
+              boardtemple[row][col] = mychara + 2;
+              boardtemple[row+1][col] = mychara + 2;
+              boardtemple[row+1][col+1] = mychara + 2;
             }
             break;
           case 2:
             if((row+1<size)&&(col-1>=0)){
-              board[row][col] = mychara + 2;
-              board[rwo+1][col-1] = mychara + 2;
-              board[rwo][col-1] = mychara + 2;
+              boardtemple[row][col] = mychara + 2;
+              boardtemple[row+1][col-1] = mychara + 2;
+              boardtemple[row][col-1] = mychara + 2;
             }
             break;
           case 3:
             if((row-1>=0)&&(col+1<size)){
-              board[row][col] = mychara + 2;
-              board[rwo-1][col+1] = mychara + 2;
-              board[rwo][col+1] = mychara + 2;
+              boardtemple[row][col] = mychara + 2;
+              boardtemple[row-1][col+1] = mychara + 2;
+              boardtemple[row][col+1] = mychara + 2;
             }
             break;
           case 4:
             if((row-1>=0)&&(col-1>=0)){
-              board[row][col] = mychara + 2;
-              board[rwo-1][col] = mychara + 2;
-              board[rwo-1][col-1] = mychara + 2;
+              boardtemple[row][col] = mychara + 2;
+              boardtemple[row-1][col] = mychara + 2;
+              boardtemple[row-1][col-1] = mychara + 2;
             }
             break;
         }
@@ -140,60 +143,60 @@ function Board({setclickinfo}) {
         switch(displayimgid){
           case 1:
             if(row+2<size){
-              board[row][col] = mychara + 2;
-              board[row+1][col] = mychara + 2;
-              board[row+2][col] = mychara + 2;
+              boardtemple[row][col] = mychara + 2;
+              boardtemple[row+1][col] = mychara + 2;
+              boardtemple[row+2][col] = mychara + 2;
             }
             break;
           case 2:
             if(col+2<size){
-              board[row][col] = mychara + 2;
-              board[row][col+1] = mychara + 2;
-              board[row][col+2] = mychara + 2;
+              boardtemple[row][col] = mychara + 2;
+              boardtemple[row][col+1] = mychara + 2;
+              boardtemple[row][col+2] = mychara + 2;
             }
             break;
         }
         break;
       case 5:
         if((row+1<size)&&(col+1<size)){
-              board[row][col] = mychara + 2;
-              board[row][col+1] = mychara + 2;
-              board[row+1][col] = mychara + 2;
-              board[row+1][col+1] = mychara + 2;
+              boardtemple[row][col] = mychara + 2;
+              boardtemple[row][col+1] = mychara + 2;
+              boardtemple[row+1][col] = mychara + 2;
+              boardtemple[row+1][col+1] = mychara + 2;
         }
         break;
       case 6:
         switch(displayimgid){
           case 1:
             if((row+1<size)&&(row-1>=0)&&(col+1<size)){
-              board[row][col] = mychara + 2;
-              board[row][col+1] = mychara + 2;
-              board[row+1][col+1] = mychara + 2;
-              board[row-1][col+1] = mychara + 2;
+              boardtemple[row][col] = mychara + 2;
+              boardtemple[row][col+1] = mychara + 2;
+              boardtemple[row+1][col+1] = mychara + 2;
+              boardtemple[row-1][col+1] = mychara + 2;
             }
             break;
           case 2:
             if((row+1<size)&&(row-1>=0)&&(col-1>=0)){
-              board[row][col] = mychara + 2;
-              board[row][col-1] = mychara + 2;
-              board[row+1][col-1] = mychara + 2;
-              board[row-1][col-1] = mychara + 2;
+              boardtemple[row][col] = mychara + 2;
+              boardtemple[row][col-1] = mychara + 2;
+              boardtemple[row+1][col-1] = mychara + 2;
+              boardtemple[row-1][col-1] = mychara + 2;
             }
             break;
           case 3:
               if((row+1<size)&&(col-1>=0)&&(col+1<size)){
-                board[row][col] = mychara + 2;
-                board[row+1][col+1] = mychara + 2;
-                board[row+1][col] = mychara + 2;
-                board[row+1][col-1] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row+1][col+1] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row+1][col-1] = mychara + 2;
               }
               break;
           case 4:
                 if((row-1>=0)&&(row-1>=0)&&(col+1<size)){
-                  board[row][col] = mychara + 2;
-                  board[row-1][col] = mychara + 2;
-                  board[row-1][col+1] = mychara + 2;
-                  board[row-1][col+1] = mychara + 2;
+                  boardtemple[row][col] = mychara + 2;
+                  boardtemple[row-1][col] = mychara + 2;
+                  boardtemple[row-1][col+1] = mychara + 2;
+                  boardtemple[row-1][col+1] = mychara + 2;
                 }
                 break;
         }
@@ -202,18 +205,18 @@ function Board({setclickinfo}) {
         switch(displayimgid){
           case 1:
             if(row+3<size){
-              board[row][col] = mychara + 2;
-              board[row+1][col] = mychara + 2;
-              board[row+2][col] = mychara + 2;
-              board[row+3][col] = mychara + 2;
+              boardtemple[row][col] = mychara + 2;
+              boardtemple[row+1][col] = mychara + 2;
+              boardtemple[row+2][col] = mychara + 2;
+              boardtemple[row+3][col] = mychara + 2;
             }
             break;
           case 2:
           if(col+3<size){
-              board[row][col] = mychara + 2;
-              board[row][col+1] = mychara + 2;
-              board[row][col+2] = mychara + 2;
-              board[row][col+3] = mychara + 2;
+              boardtemple[row][col] = mychara + 2;
+              boardtemple[row][col+1] = mychara + 2;
+              boardtemple[row][col+2] = mychara + 2;
+              boardtemple[row][col+3] = mychara + 2;
             }
             break;
         }
@@ -222,66 +225,66 @@ function Board({setclickinfo}) {
         switch(displayimgid){
           case 1:
             if((row-2>=0)&&(col+1<size)){
-              board[row][col] = mychara + 2;
-              board[row][col+1] = mychara + 2;
-              board[row-1][col+1] = mychara + 2;
-              board[row-2][col+1] = mychara + 2;
+              boardtemple[row][col] = mychara + 2;
+              boardtemple[row][col+1] = mychara + 2;
+              boardtemple[row-1][col+1] = mychara + 2;
+              boardtemple[row-2][col+1] = mychara + 2;
             }
             break;
           case 2:
               if((row+1<size)&&(col-2>=0)){
-                board[row][col] = mychara + 2;
-                board[row+1][col] = mychara + 2;
-                board[row+1][col-1] = mychara + 2;
-                board[row+1][col-2] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row+1][col-1] = mychara + 2;
+                boardtemple[row+1][col-2] = mychara + 2;
               }
               break;
           case 3:
               if((row-1>=0)&&(col+2<size)){
-                board[row][col] = mychara + 2;
-                board[row-1][col] = mychara + 2;
-                board[row-1][col+1] = mychara + 2;
-                board[row-1][col+2] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row-1][col] = mychara + 2;
+                boardtemple[row-1][col+1] = mychara + 2;
+                boardtemple[row-1][col+2] = mychara + 2;
               }
               break;
           case 4:
               if((row-2>=0)&&(col-1>=0)){
-                board[row][col] = mychara + 2;
-                board[row][col-1] = mychara + 2;
-                board[row-1][col-1] = mychara + 2;
-                board[row-2][col-1] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row-1][col-1] = mychara + 2;
+                boardtemple[row-2][col-1] = mychara + 2;
               }
               break;
           case 5:
               if((row+1<size)&&(col+2<size)){
-                board[row][col] = mychara + 2;
-                board[row+1][col] = mychara + 2;
-                board[row+1][col+1] = mychara + 2;
-                board[row+1][col+2] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row+1][col+1] = mychara + 2;
+                boardtemple[row+1][col+2] = mychara + 2;
               }
               break;
           case 6:
               if((row-1>=0)&&(col-2>=0)){
-                board[row][col] = mychara + 2;
-                board[row-1][col] = mychara + 2;
-                board[row-1][col-1] = mychara + 2;
-                board[row-1][col-2] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row-1][col] = mychara + 2;
+                boardtemple[row-1][col-1] = mychara + 2;
+                boardtemple[row-1][col-2] = mychara + 2;
               }
               break;
           case 7:
               if((row+2<size)&&(col+1<size)){
-                board[row][col] = mychara + 2;
-                board[row][col+1] = mychara + 2;
-                board[row+1][col+1] = mychara + 2;
-                board[row+2][col+1] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row+1][col+1] = mychara + 2;
+                boardtemple[row+2][col+1] = mychara + 2;
               }
               break;
           case 8:
               if((row+2<size)&&(col-1>=0)){
-                board[row][col] = mychara + 2;
-                board[row][col-1] = mychara + 2;
-                board[row+1][col-1] = mychara + 2;
-                board[row+2][col-1] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row+1][col-1] = mychara + 2;
+                boardtemple[row+2][col-1] = mychara + 2;
               }
               break;
         }
@@ -290,34 +293,34 @@ function Board({setclickinfo}) {
         switch(displayimgid){
           case 1:
             if((row+1<size)&&(row-1>=0)&&(col+1<size)){
-                board[row][col] = mychara + 2;
-                board[row+1][col] = mychara + 2;
-                board[row][col+1] = mychara + 2;
-                board[row-1][col+1] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row-1][col+1] = mychara + 2;
             }
             break;
           case 2:
             if((col+1<size)&&(col-1>=0)&&(row+1<size)){
-                board[row][col] = mychara + 2;
-                board[row][col-1] = mychara + 2;
-                board[row+1][col] = mychara + 2;
-                board[row+1][col+1] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row+1][col+1] = mychara + 2;
             }
             break;
           case 3:
             if((row+1<size)&&(col-1>=0)&&(row-1>=0)){
-                board[row][col] = mychara + 2;
-                board[row-1][col-1] = mychara + 2;
-                board[row][col-1] = mychara + 2;
-                board[row+1][col] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row-1][col-1] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
             }
             break;
           case 4:
             if((row+1<size)&&(col-1>=0)&&(col+1<size)){
-                board[row][col] = mychara + 2;
-                board[row][col+1] = mychara + 2;
-                board[row+1][col] = mychara + 2;
-                board[row+1][col-1] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row+1][col-1] = mychara + 2;
             }
             break;
         }
@@ -326,74 +329,74 @@ function Board({setclickinfo}) {
         switch(displayimgid){
           case 1:
             if((row+3<size)&&(col+1<size)){
-                board[row][col] = mychara + 2;
-                board[row][col+1] = mychara + 2;
-                board[row+1][col+1] = mychara + 2;
-                board[row+2][col+1] = mychara + 2;
-                board[row+3][col+1] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row+1][col+1] = mychara + 2;
+                boardtemple[row+2][col+1] = mychara + 2;
+                boardtemple[row+3][col+1] = mychara + 2;
             }
             break;
           case 2:
             if((row+1<size)&&(col-3>=0)){
-                board[row][col] = mychara + 2;
-                board[row+1][col] = mychara + 2;
-                board[row+1][col-1] = mychara + 2;
-                board[row+1][col-2] = mychara + 2;
-                board[row+1][col-3] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row+1][col-1] = mychara + 2;
+                boardtemple[row+1][col-2] = mychara + 2;
+                boardtemple[row+1][col-3] = mychara + 2;
             }
             break;
           case 3:
             if((row-3>=0)&&(col-1>=0)){
-                board[row][col] = mychara + 2;
-                board[row][col-1] = mychara + 2;
-                board[row-1][col-1] = mychara + 2;
-                board[row-2][col-1] = mychara + 2;
-                board[row-3][col-1] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row-1][col-1] = mychara + 2;
+                boardtemple[row-2][col-1] = mychara + 2;
+                boardtemple[row-3][col-1] = mychara + 2;
             }
             break;
           case 4:
             if((col+3<size)&&(row-1>=0)){
-                board[row][col] = mychara + 2;
-                board[row-1][col] = mychara + 2;
-                board[row-1][col+1] = mychara + 2;
-                board[row-1][col+2] = mychara + 2;
-                board[row-1][col+3] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row-1][col] = mychara + 2;
+                boardtemple[row-1][col+1] = mychara + 2;
+                boardtemple[row-1][col+2] = mychara + 2;
+                boardtemple[row-1][col+3] = mychara + 2;
             }
             break;
           case 5:
             if((row+3<size)&&(col-1>=0)){
-                board[row][col] = mychara + 2;
-                board[row][col-1] = mychara + 2;
-                board[row+1][col-1] = mychara + 2;
-                board[row+2][col-1] = mychara + 2;
-                board[row+3][col-1] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row+1][col-1] = mychara + 2;
+                boardtemple[row+2][col-1] = mychara + 2;
+                boardtemple[row+3][col-1] = mychara + 2;
             }
             break;
           case 6:
             if((row-1>=0)&&(col-3>=0)){
-                board[row][col] = mychara + 2;
-                board[row-1][col] = mychara + 2;
-                board[row-1][col-1] = mychara + 2;
-                board[row-1][col-2] = mychara + 2;
-                board[row-1][col-3] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row-1][col] = mychara + 2;
+                boardtemple[row-1][col-1] = mychara + 2;
+                boardtemple[row-1][col-2] = mychara + 2;
+                boardtemple[row-1][col-3] = mychara + 2;
             }
             break;
           case 7:
             if((row-3>=0)&&(col+1<size)){
-                board[row][col] = mychara + 2;
-                board[row][col+1] = mychara + 2;
-                board[row-1][col+1] = mychara + 2;
-                board[row-2][col+1] = mychara + 2;
-                board[row-3][col+1] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row-1][col+1] = mychara + 2;
+                boardtemple[row-2][col+1] = mychara + 2;
+                boardtemple[row-3][col+1] = mychara + 2;
             }
             break;
           case 8:
             if((row+1<size)&&(col+3<size)){
-                board[row][col] = mychara + 2;
-                board[row+1][col] = mychara + 2;
-                board[row+1][col+1] = mychara + 2;
-                board[row+1][col+2] = mychara + 2;
-                board[row+1][col+3] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row+1][col+1] = mychara + 2;
+                boardtemple[row+1][col+2] = mychara + 2;
+                boardtemple[row+1][col+3] = mychara + 2;
             }
             break;
         }
@@ -402,38 +405,38 @@ function Board({setclickinfo}) {
         switch(displayimgid){
           case 1:
             if((row+1<size)&&(row-1>=0)&&(col+2<size)){
-                board[row][col] = mychara + 2;
-                board[row][col+1] = mychara + 2;
-                board[row][col+2] = mychara + 2;
-                board[row+1][col+2] = mychara + 2;
-                board[row-1][col+2] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row][col+2] = mychara + 2;
+                boardtemple[row+1][col+2] = mychara + 2;
+                boardtemple[row-1][col+2] = mychara + 2;
             }
             break;
           case 2:
             if((row+2<size)&&(col-1>=0)&&(col+1<size)){
-                board[row][col] = mychara + 2;
-                board[row+1][col] = mychara + 2;
-                board[row+2][col] = mychara + 2;
-                board[row+2][col-1] = mychara + 2;
-                board[row+2][col+1] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row+2][col] = mychara + 2;
+                boardtemple[row+2][col-1] = mychara + 2;
+                boardtemple[row+2][col+1] = mychara + 2;
             }
             break;
           case 3:
             if((col-2>=0)&&(row-1>=0)&&(row+1<size)){
-                board[row][col] = mychara + 2;
-                board[row][col-1] = mychara + 2;
-                board[row][col-2] = mychara + 2;
-                board[row+1][col-2] = mychara + 2;
-                board[row-1][col-2] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row][col-2] = mychara + 2;
+                boardtemple[row+1][col-2] = mychara + 2;
+                boardtemple[row-1][col-2] = mychara + 2;
             }
             break;
           case 4:
             if((row-2>=0)&&(col-1>=0)&&(col+1<size)){
-                board[row][col] = mychara + 2;
-                board[row-1][col] = mychara + 2;
-                board[row-2][col] = mychara + 2;
-                board[row-2][col+1] = mychara + 2;
-                board[row-2][col-1] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row-1][col] = mychara + 2;
+                boardtemple[row-2][col] = mychara + 2;
+                boardtemple[row-2][col+1] = mychara + 2;
+                boardtemple[row-2][col-1] = mychara + 2;
             }
             break;
         }
@@ -442,38 +445,38 @@ function Board({setclickinfo}) {
         switch(displayimgid){
           case 1:
             if((row+2<size)&&(col+2<size)){
-                board[row][col] = mychara + 2;
-                board[row][col+1] = mychara + 2;
-                board[row][col+2] = mychara + 2;
-                board[row+1][col+2] = mychara + 2;
-                board[row+2][col+2] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row][col+2] = mychara + 2;
+                boardtemple[row+1][col+2] = mychara + 2;
+                boardtemple[row+2][col+2] = mychara + 2;
             }
             break;
           case 2:
             if((row+2<size)&&(col-2>=0)){
-                board[row][col] = mychara + 2;
-                board[row+1][col] = mychara + 2;
-                board[row+2][col] = mychara + 2;
-                board[row+2][col-1] = mychara + 2;
-                board[row+2][col-2] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row+2][col] = mychara + 2;
+                boardtemple[row+2][col-1] = mychara + 2;
+                boardtemple[row+2][col-2] = mychara + 2;
             }
             break;
           case 3:
             if((row-2>=0)&&(col-2>=0)){
-                board[row][col] = mychara + 2;
-                board[row][col-1] = mychara + 2;
-                board[row][col-2] = mychara + 2;
-                board[row-1][col-2] = mychara + 2;
-                board[row-2][col-2] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row][col-2] = mychara + 2;
+                boardtemple[row-1][col-2] = mychara + 2;
+                boardtemple[row-2][col-2] = mychara + 2;
             }
             break;
           case 4:
             if((col+2<size)&&(row-2>=0)){
-                board[row][col] = mychara + 2;
-                board[row-1][col] = mychara + 2;
-                board[row-2][col] = mychara + 2;
-                board[row-2][col+1] = mychara + 2;
-                board[row-2][col+2] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row-1][col] = mychara + 2;
+                boardtemple[row-2][col] = mychara + 2;
+                boardtemple[row-2][col+1] = mychara + 2;
+                boardtemple[row-2][col+2] = mychara + 2;
             }
             break;
         }
@@ -482,119 +485,457 @@ function Board({setclickinfo}) {
         switch(displayimgid){
           case 1:
             if((row+2<size)&&(row-1>=0)&&(col+1<size)){
-                board[row][col] = mychara + 2;
-                board[row+1][col] = mychara + 2;
-                board[row+2][col] = mychara + 2;
-                board[row][col+1] = mychara + 2;
-                board[row-1][col+1] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row+2][col] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row-1][col+1] = mychara + 2;
             }
             break;
           case 2:
             if((row+1<size)&&(col-2>=0)&&(col+1<size)){
-                board[row][col] = mychara + 2;
-                board[row][col-1] = mychara + 2;
-                board[row][col-2] = mychara + 2;
-                board[row+1][col] = mychara + 2;
-                board[row+1][col+1] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row][col-2] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row+1][col+1] = mychara + 2;
             }
             break;
           case 3:
-            if((row-2>=0)&&(col-1>=0)&&(row+1<szie)){
-                board[row][col] = mychara + 2;
-                board[row][col-1] = mychara + 2;
-                board[row+1][col-1] = mychara + 2;
-                board[row-1][col] = mychara + 2;
-                board[row-2][col] = mychara + 2;
+            if((row-2>=0)&&(col-1>=0)&&(row+1<size)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row+1][col-1] = mychara + 2;
+                boardtemple[row-1][col] = mychara + 2;
+                boardtemple[row-2][col] = mychara + 2;
             }
             break;
           case 4:
-            if((col-1)&&(col+2<size)&&(row-1>=0)){
-                board[row][col] = mychara + 2;
-                board[row-1][col] = mychara + 2;
-                board[row-1][col-1] = mychara + 2;
-                board[row][col+1] = mychara + 2;
-                board[row][col+2] = mychara + 2;
+            if((col-1>=0)&&(col+2<size)&&(row-1>=0)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row-1][col] = mychara + 2;
+                boardtemple[row-1][col-1] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row][col+2] = mychara + 2;
             }
             break;
           case 5:
             if((row+2<size)&&(col-1>=0)&&(row-1>=0)){
-                board[row][col] = mychara + 2;
-                board[row][col-1] = mychara + 2;
-                board[row-1][col-1] = mychara + 2;
-                board[row+1][col] = mychara + 2;
-                board[row+2][col] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row-1][col-1] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row+2][col] = mychara + 2;
             }
             break;
           case 6:
             if((row-1>=0)&&(col-2>=0)&&(col+1<size)){
-                board[row][col] = mychara + 2;
-                board[row][col-1] = mychara + 2;
-                board[row][col-2] = mychara + 2;
-                board[row-1][col] = mychara + 2;
-                board[row-1][col+1] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row][col-2] = mychara + 2;
+                boardtemple[row-1][col] = mychara + 2;
+                boardtemple[row-1][col+1] = mychara + 2;
             }
             break;
           case 7:
             if((row-2>=0)&&(col+1<size)&&(row+1<size)){
-                board[row][col] = mychara + 2;
-                board[row-1][col] = mychara + 2;
-                board[row-2][col] = mychara + 2;
-                board[row][col+1] = mychara + 2;
-                board[row+1][col+1] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row-1][col] = mychara + 2;
+                boardtemple[row-2][col] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row+1][col+1] = mychara + 2;
             }
             break;
           case 8:
             if((row+1<size)&&(col+2<size)&&(col-1>=0)){
-                board[row][col] = mychara + 2;
-                board[row][col+1] = mychara + 2;
-                board[row][col+2] = mychara + 2;
-                board[row+1][col] = mychara + 2;
-                board[row+1][col-1] = mychara + 2;
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row][col+2] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row+1][col-1] = mychara + 2;
             }
             break;
         }
         break;
       case 14:
         switch(displayimgid){
-          
+          case 1:
+            if((row-2>=0)&&(col+2<size)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row-1][col+1] = mychara + 2;
+                boardtemple[row-2][col+1] = mychara + 2;
+                boardtemple[row-2][col+2] = mychara + 2;
+            }
+            break;
+          case 2:
+            if((row+2<size)&&(col+2<size)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row+1][col+1] = mychara + 2;
+                boardtemple[row+1][col+2] = mychara + 2;
+                boardtemple[row+2][col+2] = mychara + 2;
+            }
+            break;
+          case 3:
+            if((row-2>=0)&&(col-2>=0)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row-1][col-1] = mychara + 2;
+                boardtemple[row-2][col-1] = mychara + 2;
+                boardtemple[row-2][col-2] = mychara + 2;
+            }
+            break;
+          case 4:
+            if((row+2<size)&&(col-2>=0)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row+1][col-1] = mychara + 2;
+                boardtemple[row+1][col-2] = mychara + 2;
+                boardtemple[row+2][col-2] = mychara + 2;
+            }
+            break;
         }
         break;
       case 15:
         switch(displayimgid){
-          
+          case 1:
+            if((col+3<size)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row][col+2] = mychara + 2;
+                boardtemple[row][col+3] = mychara + 2;
+            }
+            break;
+          case 2:
+            if((row+3<size)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row+2][col] = mychara + 2;
+                boardtemple[row+3][col] = mychara + 2;
+            }
+            break;
         }
         break;
       case 16:
         switch(displayimgid){
-          
+          case 1:
+            if((col+2<size)&&(row+1<size)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row][col+2] = mychara + 2;
+                boardtemple[row+1][col+1] = mychara + 2;
+                boardtemple[row+1][col+2] = mychara + 2;
+            }
+            break;
+          case 2:
+            if((row+2<size)&&(col-1>=0)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row+2][col] = mychara + 2;
+                boardtemple[row+1][col-1] = mychara + 2;
+                boardtemple[row+2][col-1] = mychara + 2;
+            }
+            break;
+          case 3:
+            if((row-1>=0)&&(col-2>=0)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row][col-2] = mychara + 2;
+                boardtemple[row-1][col-1] = mychara + 2;
+                boardtemple[row-1][col-2] = mychara + 2;
+            }
+            break;
+          case 4:
+            if((col+1<size)&&(row-2>=0)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row-1][col] = mychara + 2;
+                boardtemple[row-2][col] = mychara + 2;
+                boardtemple[row-1][col+1] = mychara + 2;
+                boardtemple[row-2][col+1] = mychara + 2;
+            }
+            break;
+          case 5:
+            if((row+1<size)&&(col-2>=0)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row][col-2] = mychara + 2;
+                boardtemple[row+1][col-1] = mychara + 2;
+                boardtemple[row+1][col-2] = mychara + 2;
+            }
+            break;
+          case 6:
+            if((row-2>=0)&&(col-1>=0)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row-1][col] = mychara + 2;
+                boardtemple[row-2][col] = mychara + 2;
+                boardtemple[row-1][col-1] = mychara + 2;
+                boardtemple[row-2][col-1] = mychara + 2;
+            }
+            break;
+          case 7:
+            if((col+2<size)&&(row-1<size)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row][col+2] = mychara + 2;
+                boardtemple[row-1][col+1] = mychara + 2;
+                boardtemple[row-1][col+2] = mychara + 2;
+            }
+            break;
+          case 8:
+            if((row+2<size)&&(col+1>=0)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row+2][col] = mychara + 2;
+                boardtemple[row+1][col+1] = mychara + 2;
+                boardtemple[row+2][col+1] = mychara + 2;
+            }
+            break;
         }
         break;
       case 17:
         switch(displayimgid){
-          
+          case 1:
+            if((row-1>=0)&&(col+2<size)&&(row+1<size)){
+              boardtemple[row][col] = mychara + 2;
+              boardtemple[row+1][col] = mychara + 2;
+              boardtemple[row][col+1] = mychara + 2;
+              boardtemple[row-1][col+1] = mychara + 2;
+              boardtemple[row-1][col+2] = mychara + 2;
+            }
+            break;
+          case 2:
+            if((row+2<size)&&(col-1>=0)&&(col+1<size)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row+1][col+1] = mychara + 2;
+                boardtemple[row+2][col+1] = mychara + 2;
+            }
+            break;
+          case 3:
+            if((row-1>=0)&&(col-2>=0)&&(row+1<size)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row-1][col] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row+1][col-1] = mychara + 2;
+                boardtemple[row+1][col-2] = mychara + 2;
+            }
+            break;
+          case 4:
+            if((col-1>=0)&&(col+1<size)&&(row-2>=0)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row-1][col] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row-2][col-1] = mychara + 2;
+            }
+            break;
         }
         break;
       case 18:
         switch(displayimgid){
-          
+          case 1:
+            if((col+2<size)&&(row+1<size)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row][col+2] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row+1][col+2] = mychara + 2;
+            }
+            break;
+          case 2:
+            if((row+2<size)&&(col-1>=0)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row+2][col] = mychara + 2;
+                boardtemple[row+2][col-1] = mychara + 2;
+            }
+            break;
+          case 3:
+            if((row-1>=0)&&(col-2>=0)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row-1][col] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row][col-2] = mychara + 2;
+                boardtemple[row-1][col-2] = mychara + 2;
+            }
+            break;
+          case 4:
+            if((col+1<size)&&(row-2>=0)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row-1][col] = mychara + 2;
+                boardtemple[row-2][col] = mychara + 2;
+                boardtemple[row-2][col+1] = mychara + 2;
+            }
+            break;
         }
         break;
       case 19:
         switch(displayimgid){
-          
+          case 1:
+            if((row+1<size)&&(row-1>=0)&&(col+2<size)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row][col+2] = mychara + 2;
+                boardtemple[row-1][col+1] = mychara + 2;
+            }
+            break;
+          case 2:
+            if((row+2<size)&&(col-1>=0)&&(col+1<size)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row+2][col] = mychara + 2;
+                boardtemple[row+1][col+1] = mychara + 2;
+            }
+            break;
+          case 3:
+            if((row-1>=0)&&(col-2>=0)&&(row+1<size)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row-1][col] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row][col-2] = mychara + 2;
+                boardtemple[row+1][col-1] = mychara + 2;
+            }
+            break;
+          case 4:
+            if((col-1>=0)&&(col+1<size)&&(row-2>=0)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row-1][col] = mychara + 2;
+                boardtemple[row-2][col] = mychara + 2;
+                boardtemple[row-1][col-1] = mychara + 2;
+            }
+            break;
+          case 5:
+            if((row+1<size)&&(col-2>=0)&&(row-1>=0)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row][col-2] = mychara + 2;
+                boardtemple[row-1][col-1] = mychara + 2;
+            }
+            break;
+          case 6:
+            if((row-2>=0)&&(col-1>=0)&&(col+1<size)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row-1][col] = mychara + 2;
+                boardtemple[row-2][col] = mychara + 2;
+                boardtemple[row-1][col+1] = mychara + 2;
+            }
+            break;
+          case 7:
+            if((row-1>=0)&&(col+2<size)&&(row+1<size)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row-1][col] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row][col+2] = mychara + 2;
+                boardtemple[row+1][col+1] = mychara + 2;
+            }
+            break;
+          case 8:
+            if((row+2<size)&&(col+1<size)&&(col-1>=0)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row+2][col] = mychara + 2;
+                boardtemple[row+1][col-1] = mychara + 2;
+            }
+            break;
         }
         break;
       case 20:
-        switch(displayimgid){
-          
-        }
+          if((row+1<size)&&(col+2<size)&&(row-1>=0)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row][col+2] = mychara + 2;
+                boardtemple[row+1][col+1] = mychara + 2;
+                boardtemple[row-1][col+1] = mychara + 2;
+          }
         break;
       case 21:
         switch(displayimgid){
-          
+          case 1:
+            if((row+2<size)&&(row-1>=0)&&(col+1<size)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row+1][col+1] = mychara + 2;
+                boardtemple[row+2][col+1] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row-1][col+1] = mychara + 2;
+            }
+            break;
+          case 2:
+            if((row+1<size)&&(col-2>=0)&&(col+1<size)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row+1][col-1] = mychara + 2;
+                boardtemple[row+1][col-2] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row+1][col+1] = mychara + 2;
+            }
+            break;
+          case 3:
+            if((row-2>=0)&&(col-1>=0)&&(row+1<size)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row+1][col-1] = mychara + 2;
+                boardtemple[row-1][col-1] = mychara + 2;
+                boardtemple[row-2][col-1] = mychara + 2;
+            }
+            break;
+          case 4:
+            if((col-1>=0)&&(col+2<size)&&(row-1>=0)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row-1][col+1] = mychara + 2;
+                boardtemple[row-1][col+2] = mychara + 2;
+                boardtemple[row-1][col] = mychara + 2;
+                boardtemple[row-1][col-1] = mychara + 2;
+            }
+            break;
+          case 5:
+            if((row+2<size)&&(col-1>=0)&&(row-1>=0)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row+1][col-1] = mychara + 2;
+                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row+2][col-1] = mychara + 2;
+                boardtemple[row-1][col-1] = mychara + 2;
+            }
+            break;
+          case 6:
+            if((row-1>=0)&&(col-2>=0)&&(col+1<size)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row-1][col-1] = mychara + 2;
+                boardtemple[row-1][col] = mychara + 2;
+                boardtemple[row-1][col-2] = mychara + 2;
+                boardtemple[row-1][col+1] = mychara + 2;
+            }
+            break;
+          case 7:
+            if((row-2>=0)&&(col+1<size)&&(row+1<size)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row-1][col+1] = mychara + 2;
+                boardtemple[row][col+1] = mychara + 2;
+                boardtemple[row-2][col+1] = mychara + 2;
+                boardtemple[row+1][col+1] = mychara + 2;
+            }
+            break;
+          case 8:
+            if((row+1<size)&&(col+2<size)&&(col-1>=0)){
+                boardtemple[row][col] = mychara + 2;
+                boardtemple[row+1][col+1] = mychara + 2;
+                boardtemple[row+1][col] = mychara + 2;
+                boardtemple[row+1][col+2] = mychara + 2;
+                boardtemple[row+1][col-1] = mychara + 2;
+            }
+            break;
         }
         break;
     }
+    setBoard(boardtemple);
   };
 
   return (
@@ -660,7 +1001,7 @@ function ButtonColumn({ label1, label2, onClick1, onClick2 }) {
                 console.log(data.result.creator);
                 setcreatorname(data.result.creator);
               }
-              const newwinner = "";
+              let newwinner = "";
               if(winner!=data.result.winner){
                 console.log("winner!=data.winner");
                 console.log(winner);
@@ -668,8 +1009,8 @@ function ButtonColumn({ label1, label2, onClick1, onClick2 }) {
                 setwinner(data.result.winner);
                 newwinner = data.result.winner;
               }
-              const crstop = 0;
-              const pastop = 0;
+              let crstop = 0;
+              let pastop = 0;
               if(cst!=data.result.cst){
                 console.log("cst!=data.cst");
                 console.log(cst);
@@ -689,7 +1030,7 @@ function ButtonColumn({ label1, label2, onClick1, onClick2 }) {
                 console.log(board);
                 console.log(data.result.chessboard);
                 setBoard(data.result.chessboard);
-                setcopyarray(Array.from(data.result.chessboard));
+                setcopyarray(JSON.parse(JSON.stringify(data.result.chessboard)));
               }
               if(turnNum!=data.result.turn){
                 console.log("turnNum!=data.turn");
@@ -756,8 +1097,22 @@ function ButtonColumn({ label1, label2, onClick1, onClick2 }) {
   }
   
 //将棋盘改为下完此步棋的状态，并发送至服务器，同时将轮数加一
-async function downchessandturnplus(){
-  
+async function downchessandturnplus({board}){
+  const response = await fetch(`/api/uploadboard?chessid=${gid}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ myboard: board })  // 将棋盘数组转换为JSON字符串
+    });
+    const data = await response.json();
+
+    if (response.ok) {
+      console.log("落子成功。");
+    }else{
+      console.log("落子失败。");
+      console.log(data.error);
+    }
 }
 
 //结算比赛
@@ -790,10 +1145,10 @@ async function tobelose(){
   const response = await fetch(`/api/stopplay?chessid=${gid}&chara=${mychara}`);
   const data = await response.json();
   if(response.ok){
-    console.log("停手成功......");
+    console.log("认输成功......");
     console.log(data);
   }else{
-    console.log("停手失败。");
+    console.log("认输失败。");
     console.log(data.error);
   }
 }
@@ -880,9 +1235,11 @@ const chooseitem = (index) =>{
       setremindinfo("您已停手，不能再落子，请等待对方落子结束后结算。");
     }else if(((mychara==1)&&(turnNum%2==0))||((mychara==2)&&(turnNum%2==1))){
       setremindinfo("轮到对方落子，您不能落子。");
+    }else if(clickinfo==''){
+      setremindinfo("您还没有选择落点。");
     }else{
-      console.log(`点击了下棋，棋子为${(selectedItem+1)}_${(displayimgid+1)}`);
-      await downchessandturnplus();
+      console.log(`点击了下棋，棋子为${(selectedItem+1)}_${(displayimgid+1)}，落点为${clickinfo}`);
+      await downchessandturnplus({board});
       setIsPolling(true);
     }
   };

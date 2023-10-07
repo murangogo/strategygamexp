@@ -11,7 +11,6 @@ export default async function getchessdb(request, response) {
 
     const result = await db.one('SELECT * FROM chessdb WHERE id = $1', [chessnum]);
     
-    console.log(result);
     return response.status(200).json({ result });
   } catch (error) {
     return response.status(500).json({ error: error.message });
