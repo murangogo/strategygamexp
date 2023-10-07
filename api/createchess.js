@@ -9,7 +9,7 @@ export default async function handler(request, response) {
     }
 
     const idgroup = await db.one(
-        'INSERT INTO chessdb (chessboard, creator, partner, cst, pst, turn, winner) VALUES ($1, $2, \'\', 0, 0, 0, 0) RETURNING id;',
+        'INSERT INTO chessdb (chessboard, creator, partner, cst, pst, turn, winner) VALUES ($1, $2, \'\', 0, 0, 1, 0) RETURNING id;',
         [
           [
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0],

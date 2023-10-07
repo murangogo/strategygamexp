@@ -41,7 +41,7 @@ function HomePage() {
     const data = await response.json();
     if(response.ok){
       alert(data.message);
-      navigate(`/chess/?id=${gameId}&typech=creator&username=${username}`)
+      navigate(`/chess/?id=${gameId}&typech=partner&username=${username}`)
     }else{
       alert(data.error);
       setstatusinfo(data.error);
