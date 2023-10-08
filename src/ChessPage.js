@@ -1046,6 +1046,8 @@ function ButtonColumn2({ label1, onClick1}) {
                 console.log(creatorname);
                 console.log(data.result.creator);
                 setcreatorname(data.result.creator);
+                setbattlepop(data.result.creator);
+                console.log("设置创建者");
               }
               let crstop = 0;
               let pastop = 0;
@@ -1055,7 +1057,6 @@ function ButtonColumn2({ label1, onClick1}) {
                 console.log(data.result.cst);
                 crstop = data.result.cst;
                 setcst(data.result.cst);
-                setbattlepop(data.result.cst);
               }
               if(pst!=data.result.pst){
                 console.log("pst!=data.pst");
@@ -1063,7 +1064,6 @@ function ButtonColumn2({ label1, onClick1}) {
                 console.log(data.result.pst);
                 pastop = data.result.pst;
                 setpst(data.result.pst);
-                setbattlepop(data.result.pst);
               }
               let newwinner = "";
               if(winner!=data.result.winner){
@@ -1131,6 +1131,8 @@ function ButtonColumn2({ label1, onClick1}) {
                   console.log(partnername);
                   console.log(data.result.partner);
                   setpartnername(data.result.partner);
+                  setbattlepop(data.result.partner);
+                  console.log("设置加入者");
                 }
               }
             }else{
