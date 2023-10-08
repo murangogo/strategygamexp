@@ -144,7 +144,7 @@ function Board({setclickinfo,setmindinfo}) {
         }
         break;
       case 3:
-        switch(displayimgid){
+        switch(displayimgid+1){
           case 1:
             if((row+1<size)&&(col+1<size)){
               boardtemple[row][col] = mychara + 2;
@@ -176,7 +176,7 @@ function Board({setclickinfo,setmindinfo}) {
         }
         break;
       case 4:
-        switch(displayimgid){
+        switch(displayimgid+1){
           case 1:
             if(row+2<size){
               boardtemple[row][col] = mychara + 2;
@@ -202,7 +202,7 @@ function Board({setclickinfo,setmindinfo}) {
         }
         break;
       case 6:
-        switch(displayimgid){
+        switch(displayimgid+1){
           case 1:
             if((row+1<size)&&(row-1>=0)&&(col+1<size)){
               boardtemple[row][col] = mychara + 2;
@@ -228,17 +228,17 @@ function Board({setclickinfo,setmindinfo}) {
               }
               break;
           case 4:
-                if((row-1>=0)&&(row-1>=0)&&(col+1<size)){
+                if((row-1>=0)&&(col-1>=0)&&(col+1<size)){
                   boardtemple[row][col] = mychara + 2;
                   boardtemple[row-1][col] = mychara + 2;
-                  boardtemple[row-1][col+1] = mychara + 2;
+                  boardtemple[row-1][col-1] = mychara + 2;
                   boardtemple[row-1][col+1] = mychara + 2;
                 }
                 break;
         }
         break;
       case 7:
-        switch(displayimgid){
+        switch(displayimgid+1){
           case 1:
             if(row+3<size){
               boardtemple[row][col] = mychara + 2;
@@ -258,7 +258,7 @@ function Board({setclickinfo,setmindinfo}) {
         }
         break;
       case 8:
-        switch(displayimgid){
+        switch(displayimgid+1){
           case 1:
             if((row-2>=0)&&(col+1<size)){
               boardtemple[row][col] = mychara + 2;
@@ -326,7 +326,7 @@ function Board({setclickinfo,setmindinfo}) {
         }
         break;
       case 9:
-        switch(displayimgid){
+        switch(displayimgid+1){
           case 1:
             if((row+1<size)&&(row-1>=0)&&(col+1<size)){
                 boardtemple[row][col] = mychara + 2;
@@ -362,7 +362,7 @@ function Board({setclickinfo,setmindinfo}) {
         }
         break;
       case 10:
-        switch(displayimgid){
+        switch(displayimgid+1){
           case 1:
             if((row+3<size)&&(col+1<size)){
                 boardtemple[row][col] = mychara + 2;
@@ -438,7 +438,7 @@ function Board({setclickinfo,setmindinfo}) {
         }
         break;
       case 11:
-        switch(displayimgid){
+        switch(displayimgid+1){
           case 1:
             if((row+1<size)&&(row-1>=0)&&(col+2<size)){
                 boardtemple[row][col] = mychara + 2;
@@ -478,7 +478,7 @@ function Board({setclickinfo,setmindinfo}) {
         }
         break;
       case 12:
-        switch(displayimgid){
+        switch(displayimgid+1){
           case 1:
             if((row+2<size)&&(col+2<size)){
                 boardtemple[row][col] = mychara + 2;
@@ -518,7 +518,7 @@ function Board({setclickinfo,setmindinfo}) {
         }
         break;
       case 13:
-        switch(displayimgid){
+        switch(displayimgid+1){
           case 1:
             if((row+2<size)&&(row-1>=0)&&(col+1<size)){
                 boardtemple[row][col] = mychara + 2;
@@ -594,7 +594,7 @@ function Board({setclickinfo,setmindinfo}) {
         }
         break;
       case 14:
-        switch(displayimgid){
+        switch(displayimgid+1){
           case 1:
             if((row-2>=0)&&(col+2<size)){
                 boardtemple[row][col] = mychara + 2;
@@ -634,7 +634,7 @@ function Board({setclickinfo,setmindinfo}) {
         }
         break;
       case 15:
-        switch(displayimgid){
+        switch(displayimgid+1){
           case 1:
             if((col+3<size)){
                 boardtemple[row][col] = mychara + 2;
@@ -654,7 +654,7 @@ function Board({setclickinfo,setmindinfo}) {
         }
         break;
       case 16:
-        switch(displayimgid){
+        switch(displayimgid+1){
           case 1:
             if((col+2<size)&&(row+1<size)){
                 boardtemple[row][col] = mychara + 2;
@@ -730,7 +730,7 @@ function Board({setclickinfo,setmindinfo}) {
         }
         break;
       case 17:
-        switch(displayimgid){
+        switch(displayimgid+1){
           case 1:
             if((row-1>=0)&&(col+2<size)&&(row+1<size)){
               boardtemple[row][col] = mychara + 2;
@@ -763,14 +763,14 @@ function Board({setclickinfo,setmindinfo}) {
                 boardtemple[row][col] = mychara + 2;
                 boardtemple[row][col+1] = mychara + 2;
                 boardtemple[row-1][col] = mychara + 2;
-                boardtemple[row][col-1] = mychara + 2;
+                boardtemple[row-1][col-1] = mychara + 2;
                 boardtemple[row-2][col-1] = mychara + 2;
             }
             break;
         }
         break;
       case 18:
-        switch(displayimgid){
+        switch(displayimgid+1){
           case 1:
             if((col+2<size)&&(row+1<size)){
                 boardtemple[row][col] = mychara + 2;
@@ -810,7 +810,7 @@ function Board({setclickinfo,setmindinfo}) {
         }
         break;
       case 19:
-        switch(displayimgid){
+        switch(displayimgid+1){
           case 1:
             if((row+1<size)&&(row-1>=0)&&(col+2<size)){
                 boardtemple[row][col] = mychara + 2;
@@ -895,7 +895,7 @@ function Board({setclickinfo,setmindinfo}) {
           }
         break;
       case 21:
-        switch(displayimgid){
+        switch(displayimgid+1){
           case 1:
             if((row+2<size)&&(row-1>=0)&&(col+1<size)){
                 boardtemple[row][col] = mychara + 2;
@@ -1081,8 +1081,7 @@ function ButtonColumn2({ label1, onClick1}) {
                 setBoard(data.result.chessboard);
                 setcopyarray(JSON.parse(JSON.stringify(data.result.chessboard)));
               }
-              if(turnNum!=data.result.turn){
-                console.log("turnNum!=data.turn");
+
                 console.log(turnNum);
                 console.log(data.result.turn);
                 setturnNum(data.result.turn);
@@ -1091,10 +1090,10 @@ function ButtonColumn2({ label1, onClick1}) {
                     setIsPolling(false);
                 }else{
                     //判断停手状况
-                    if(((mychara==1)&&(crstop==1))||((mychara==2)&&(pastop==1))){
+                    if(((mychara==1)&&((crstop==1)||(cst==1)))||((mychara==2)&&((pastop==1)||(pst==1)))){
                       //自己停手，看对方有没有停手
                       setimportantinfo("您已停手。");
-                      if(((mychara==1)&&(pastop==1))||((mychara==2)&&(crstop==1))){
+                      if(((mychara==1)&&((pastop==1)||(pst==1)))||((mychara==2)&&((crstop==1)||(cst==1)))){
                         //对方也停手，则结算比赛
                           setimportantinfo("双方已停手，请等待结算。");
                           await gameover({setimportantinfo});
@@ -1119,7 +1118,7 @@ function ButtonColumn2({ label1, onClick1}) {
                     }
                     }
                 }
-              }
+              
               if(data.result.partner==""){
                 console.log("对方还没来，我还得轮询。");
                 setturnNum(0);
@@ -1198,26 +1197,29 @@ async function gameover({setimportantinfo}){
 }
 
 //停止落子
-async function stopplaytodb(){
+async function stopplaytodb({setremindinfo}){
   const response = await fetch(`/api/stopplay?chessid=${gid}&chara=${mychara}`);
   const data = await response.json();
   if(response.ok){
     console.log("停手成功......");
     console.log(data);
+    setremindinfo("停手成功。");
   }else{
     console.log("停手失败。");
     console.log(data.error);
+    setremindinfo("停手失败。");
   }
 }
 
 //认输
-async function tobelose({setimportantinfo}){
-  const response = await fetch(`/api/stopplay?chessid=${gid}&chara=${mychara}`);
+async function tobelose({setimportantinfo,setremindinfo}){
+  const response = await fetch(`/api/tobelose?chessid=${gid}&chara=${mychara}`);
   const data = await response.json();
   if(response.ok){
     console.log("认输成功......");
     console.log(data.message);
     setimportantinfo(data.message);
+    setremindinfo("认输成功。");
   }else{
     console.log("认输失败。");
     console.log(data.error);
@@ -1329,7 +1331,7 @@ const chooseitem = (index) =>{
       setremindinfo("轮到对方落子，您不能停手。");
     }else{
       console.log("停止落子。");
-      await stopplaytodb();
+      await stopplaytodb({setremindinfo});
       setIsPolling(true);
     }
   };
@@ -1347,7 +1349,7 @@ const chooseitem = (index) =>{
       setremindinfo("轮到对方落子，您不能认输。");
     }else{
       console.log("认输。");
-      await tobelose({setimportantinfo});
+      await tobelose({setimportantinfo,setremindinfo});
       setIsPolling(true);
     }
   };
