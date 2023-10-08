@@ -4,6 +4,7 @@ import PollingContext, { PollingProvider } from './PollingController';
 
 let mychara = 0;  //我的角色，1创建者，2加入者
 let gid = 0;
+let bannum = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
 
 //棋盘大小
 const size = 14;
@@ -15,6 +16,30 @@ const colorMap = {
   2: '#8FA4F0',
   3: '#D4ABA9',
   4: '#AFDFE6'
+};
+
+const banMap = {
+  0: 'icons/1_ban',
+  1: 'icons/2_ban',
+  2: 'icons/3_ban',
+  3: 'icons/4_ban',
+  4: 'icons/5_ban',
+  5: 'icons/6_ban',
+  6: 'icons/7_ban',
+  7: 'icons/8_ban',
+  8: 'icons/9_ban',
+  9: 'icons/10_ban',
+  10: 'icons/11_ban',
+  11: 'icons/12_ban',
+  12: 'icons/13_ban',
+  13: 'icons/14_ban',
+  14: 'icons/15_ban',
+  15: 'icons/16_ban',
+  16: 'icons/17_ban',
+  17: 'icons/18_ban',
+  18: 'icons/19_ban',
+  19: 'icons/20_ban',
+  20: 'icons/21_ban'
 };
 
 //下方选择棋子所使用的图片路径
@@ -56,7 +81,7 @@ function Cell({ onClick, cellValue }) {
 }
 
 //下方棋子选择列表，Item组件，可点击
-function Item({ label, isSelected, onClick, icon }) {
+function Item({ label, isSelected, onClick, iconindex, indexitem}) {
     const itemStyle = {
       padding: '5px',
       cursor: 'pointer',
@@ -64,6 +89,14 @@ function Item({ label, isSelected, onClick, icon }) {
       display: 'flex',  //弹性盒子布局
       alignItems: 'center'
     };
+
+    let icon = '';
+
+    if(bannum[iconindex]==1){
+      icon = require('./'+indexitem.icon+'.png');
+    }else{
+      icon = require('./'+banMap[iconindex]+'.png');
+    }
   
     return (
       <span style={itemStyle} onClick={onClick}>
@@ -73,7 +106,7 @@ function Item({ label, isSelected, onClick, icon }) {
   }
 
 // Board组件，棋盘
-function Board({setclickinfo}) {
+function Board({setclickinfo,setmindinfo}) {
   const { copyarray,board,setBoard,selectedItem,displayimgid } = useContext(PollingContext);
 
   //判断board
@@ -82,6 +115,9 @@ function Board({setclickinfo}) {
 
   //点击某个位置
   const handleCellClick = (row, col) => {
+    if(bannum[selectedItem]==0){
+      setmindinfo("您已经下过这个棋子了。");
+    }else{
     setclickinfo(`${row}, ${col}`);
     setBoard(JSON.parse(JSON.stringify(copyarray)));
     console.log("copyarray："+copyarray);
@@ -94,15 +130,15 @@ function Board({setclickinfo}) {
       case 2:
         switch(displayimgid+1){
           case 1: 
-          if((col+1)<size){
-            boardtemple[row][col] = mychara + 2;
-            boardtemple[row][col+1] = mychara + 2;
-          }
-          break;
-          case 2:
           if((row+1)<size){
             boardtemple[row][col] = mychara + 2;
             boardtemple[row+1][col] = mychara + 2;
+          }
+          break;
+          case 2:
+          if((col+1)<size){
+            boardtemple[row][col] = mychara + 2;
+            boardtemple[row][col+1] = mychara + 2;
           }
           break;
         }
@@ -936,6 +972,7 @@ function Board({setclickinfo}) {
         break;
     }
     setBoard(boardtemple);
+    }
   };
 
   return (
@@ -967,9 +1004,18 @@ function ButtonColumn({ label1, label2, onClick1, onClick2 }) {
     );
   }
 
+  //按钮样式
+function ButtonColumn2({ label1, onClick1}) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', marginRight: '10px' }}>
+      <button onClick={onClick1}>{label1}</button>
+    </div>
+  );
+}
+
   function PollingComponent() {
     const [loopCounter, setLoopCounter] = useState(0);
-    const {setcopyarray,partnername, setpartnername,creatorname, setcreatorname,isPolling, setIsPolling, turnNum, setturnNum,cst, setcst,pst, setpst ,winner,setwinner,board, setBoard } = useContext(PollingContext);
+    const {setimportantinfo,setcopyarray,partnername, setpartnername,creatorname, setcreatorname,isPolling, setIsPolling, turnNum, setturnNum,cst, setcst,pst, setpst ,winner,setwinner,board, setBoard } = useContext(PollingContext);
     
     const arraysAreEqual = (arr1, arr2) => {
       if (!arr1 || !arr2) return false; // 检查是否存在空数组
@@ -1001,14 +1047,6 @@ function ButtonColumn({ label1, label2, onClick1, onClick2 }) {
                 console.log(data.result.creator);
                 setcreatorname(data.result.creator);
               }
-              let newwinner = "";
-              if(winner!=data.result.winner){
-                console.log("winner!=data.winner");
-                console.log(winner);
-                console.log(data.result.winner);
-                setwinner(data.result.winner);
-                newwinner = data.result.winner;
-              }
               let crstop = 0;
               let pastop = 0;
               if(cst!=data.result.cst){
@@ -1025,6 +1063,17 @@ function ButtonColumn({ label1, label2, onClick1, onClick2 }) {
                 pastop = data.result.pst;
                 setpst(data.result.pst);
               }
+              let newwinner = "";
+              if(winner!=data.result.winner){
+                console.log("winner!=data.winner");
+                console.log(winner);
+                console.log(data.result.winner);
+                setwinner(data.result.winner);
+                newwinner = data.result.winner;
+                if((newwinner!="")&&((crstop==0)||(pastop==0))){
+                  setimportantinfo(`一方认输，${newwinner}获胜。`);
+                }
+              }
               if(!(arraysAreEqual(board,data.result.chessboard))){
                 console.log("!(arraysAreEqual(board,data.board))");
                 console.log(board);
@@ -1037,31 +1086,38 @@ function ButtonColumn({ label1, label2, onClick1, onClick2 }) {
                 console.log(turnNum);
                 console.log(data.result.turn);
                 setturnNum(data.result.turn);
-                //判断停手状况
-                if(((mychara==1)&&(crstop==1))||((mychara==2)&&(pastop==1))){
-                    //自己停手，看对方有没有停手
-                    if(((mychara==1)&&(pastop==1))||((mychara==2)&&(crstop==1))){
-                      //对方也停手，则结算比赛
-                      if(newwinner!=""){
-                        //winner已经出现，则已经结算，不需要再轮询
+                if((newwinner!="")||(winner!="")){
+                    //已经产生赢家，不需要判断和轮询。
+                    setIsPolling(false);
+                }else{
+                    //判断停手状况
+                    if(((mychara==1)&&(crstop==1))||((mychara==2)&&(pastop==1))){
+                      //自己停手，看对方有没有停手
+                      setimportantinfo("您已停手。");
+                      if(((mychara==1)&&(pastop==1))||((mychara==2)&&(crstop==1))){
+                        //对方也停手，则结算比赛
+                          setimportantinfo("双方已停手，请等待结算。");
+                          await gameover({setimportantinfo});
+                          setIsPolling(false);
+                      }
+                      //自己停手，对方没停，则继续轮询
+                    }else{
+                      //自己没停手，看对方是否停手
+                      if(((mychara==1)&&(pastop==1))||((mychara==2)&&(crstop==1))){
+                        //对方停手，自己没停手，则直接停止轮询
+                        setimportantinfo("对方已停手，请您继续落子，并在连续落子结束后，点击停手。");
                         setIsPolling(false);
                       }else{
-                        await gameover();
-                      }
+                        //双方都没停手，则判断是否到本人下棋，是则停止轮询
+                        if(((mychara==1)&&(data.result.turn%2==1))||((mychara==2)&&(data.result.turn%2==0))){
+                          console.log("到我下棋，停止轮询。");
+                          setimportantinfo(`该您落子。(第${data.result.turn}手)`);
+                          setIsPolling(false);
+                        }else{
+                          setimportantinfo(`对方落子。(第${data.result.turn}手)`);
+                        }
                     }
-                    //自己停手，对方没停，则继续轮询
-                }else{
-                    //自己没停手，看对方是否停手
-                    if(((mychara==1)&&(pastop==1))||((mychara==2)&&(crstop==1))){
-                      //对方停手，自己没停手，则直接停止轮询
-                      setIsPolling(false);
-                    }else{
-                      //双方都没停手，则判断是否到本人下棋，是则停止轮询
-                      if(((mychara==1)&&(data.result.turn%2==1))||((mychara==2)&&(data.result.turn%2==0))){
-                        console.log("到我下棋，停止轮询。");
-                        setIsPolling(false);
-                      }
-                  }
+                    }
                 }
               }
               if(data.result.partner==""){
@@ -1097,30 +1153,44 @@ function ButtonColumn({ label1, label2, onClick1, onClick2 }) {
   }
   
 //将棋盘改为下完此步棋的状态，并发送至服务器，同时将轮数加一
-async function downchessandturnplus({board}){
+async function downchessandturnplus({board, selectedItem,setremindinfo}){
+  let myuloadboard = JSON.parse(JSON.stringify(board));
+  for (let i = 0; i < myuloadboard.length; i++) {
+    for (let j = 0; j < myuloadboard[i].length; j++) {
+      if (myuloadboard[i][j] == 3){
+        myuloadboard[i][j] = 1;
+      }else if(myuloadboard[i][j] == 4){
+        myuloadboard[i][j] = 2;
+      }
+    }
+  }
   const response = await fetch(`/api/uploadboard?chessid=${gid}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ myboard: board })  // 将棋盘数组转换为JSON字符串
+      body: JSON.stringify({ myboard: myuloadboard })  // 将棋盘数组转换为JSON字符串
     });
     const data = await response.json();
 
     if (response.ok) {
       console.log("落子成功。");
+      bannum[selectedItem] = 0;
+      setremindinfo("落子成功。");
     }else{
       console.log("落子失败。");
       console.log(data.error);
+      setremindinfo("落子失败。");
     }
 }
 
 //结算比赛
-async function gameover(){
+async function gameover({setimportantinfo}){
   const response = await fetch(`/api/gameover?chessid=${gid}`);
   const data = await response.json();
   if(response.ok){
     console.log(data.message);
+    setimportantinfo(data.message);
   }else{
     console.log("结算失败。");
     console.log(data.error);
@@ -1132,24 +1202,26 @@ async function stopplaytodb(){
   const response = await fetch(`/api/stopplay?chessid=${gid}&chara=${mychara}`);
   const data = await response.json();
   if(response.ok){
-    console.log("认输成功......");
+    console.log("停手成功......");
     console.log(data);
   }else{
-    console.log("认输失败。");
+    console.log("停手失败。");
     console.log(data.error);
   }
 }
 
 //认输
-async function tobelose(){
+async function tobelose({setimportantinfo}){
   const response = await fetch(`/api/stopplay?chessid=${gid}&chara=${mychara}`);
   const data = await response.json();
   if(response.ok){
     console.log("认输成功......");
-    console.log(data);
+    console.log(data.message);
+    setimportantinfo(data.message);
   }else{
     console.log("认输失败。");
     console.log(data.error);
+    setimportantinfo("认输失败。");
   }
 }
 
@@ -1190,6 +1262,8 @@ const [copyarray,setcopyarray] = useState(
 
 //获取点击坐标
 const [clickinfo,setclickinfo] = useState('');
+//信息提示
+const [importantinfo,setimportantinfo] = useState('');
 //展示选择的棋子的大图的图片路径
 const [displayimg,setdisplayimg] = useState('icons/1_1');
 //选择的棋子的变换状态总数，用于取余，便于图片循环
@@ -1233,13 +1307,13 @@ const chooseitem = (index) =>{
       setremindinfo("棋局已结束，不能再落子。");
     }else if(((mychara==1)&&(cst==1))||((mychara==2)&&(pst==1))){
       setremindinfo("您已停手，不能再落子，请等待对方落子结束后结算。");
-    }else if(((mychara==1)&&(turnNum%2==0))||((mychara==2)&&(turnNum%2==1))){
+    }else if(((mychara==1)&&(turnNum%2==0)&&(pst!=1))||((mychara==2)&&(turnNum%2==1)&&(cst!=1))){
       setremindinfo("轮到对方落子，您不能落子。");
     }else if(clickinfo==''){
       setremindinfo("您还没有选择落点。");
     }else{
       console.log(`点击了下棋，棋子为${(selectedItem+1)}_${(displayimgid+1)}，落点为${clickinfo}`);
-      await downchessandturnplus({board});
+      await downchessandturnplus({board,selectedItem,setremindinfo});
       setIsPolling(true);
     }
   };
@@ -1251,7 +1325,7 @@ const chooseitem = (index) =>{
       setremindinfo("棋局已结束，不能停止落子。")
     }else if(((mychara==1)&&(cst==1))||((mychara==2)&&(pst==1))){
       setremindinfo("已经停手。");
-    }else if(((mychara==1)&&(turnNum%2==0))||((mychara==2)&&(turnNum%2==1))){
+    }else if(((mychara==1)&&(turnNum%2==0)&&(pst!=1))||((mychara==2)&&(turnNum%2==1)&&(cst!=1))){
       setremindinfo("轮到对方落子，您不能停手。");
     }else{
       console.log("停止落子。");
@@ -1259,6 +1333,10 @@ const chooseitem = (index) =>{
       setIsPolling(true);
     }
   };
+
+  const cleanchess = () => {
+    setBoard(JSON.parse(JSON.stringify(copyarray)));
+  }
   
   const belose = async () => {
     if((creatorname=='')||(partnername=='')){
@@ -1269,7 +1347,7 @@ const chooseitem = (index) =>{
       setremindinfo("轮到对方落子，您不能认输。");
     }else{
       console.log("认输。");
-      await tobelose();
+      await tobelose({setimportantinfo});
       setIsPolling(true);
     }
   };
@@ -1284,20 +1362,20 @@ const chooseitem = (index) =>{
   
 
   return (
-    <PollingProvider value={{copyarray,setcopyarray,selectedItem,displayimgid,partnername, setpartnername,creatorname, setcreatorname,remindinfo,setremindinfo,isPolling, setIsPolling, turnNum, setturnNum,cst, setcst,pst, setpst ,winner,setwinner,board, setBoard}}>
+    <PollingProvider value={{importantinfo,setimportantinfo,copyarray,setcopyarray,selectedItem,displayimgid,partnername, setpartnername,creatorname, setcreatorname,remindinfo,setremindinfo,isPolling, setIsPolling, turnNum, setturnNum,cst, setcst,pst, setpst ,winner,setwinner,board, setBoard}}>
     <PollingComponent />
     <div className="chess-page">
       <p>看看你有多聪明？</p>
       <p>房间号：{gameid} 角色：{chara} 你是：{username}</p>
-      <p>你点了{clickinfo}</p>
-      <Board setclickinfo={setclickinfo}/>
+      <p>你点了{clickinfo}， <span style={{color: 'red'}}>{importantinfo}</span></p>
+      <Board setclickinfo={setclickinfo} setmindinfo ={setremindinfo}/>
 
         <div style={{ display: 'flex', marginTop: '10px' }}>
 
         <img src={require('./'+displayimg+'.png')} style={ {marginRight: '5px'}}/>
         
         <ButtonColumn 
-        label1="停止下棋" 
+        label1="停手" 
         label2="认输" 
         onClick1={stopplay} 
         onClick2={belose} 
@@ -1308,6 +1386,10 @@ const chooseitem = (index) =>{
         onClick1={changeimg} 
         onClick2={okupload} 
         />
+        <ButtonColumn2
+        label1="清除试下" 
+        onClick1={cleanchess} 
+        />
         <p>{remindinfo}</p>
         </div>
       
@@ -1316,7 +1398,8 @@ const chooseitem = (index) =>{
             {items.map((item, index) => (
             <Item
                 key={index}
-                icon={require('./'+item.icon+'.png')}
+                iconindex = {index}
+                indexitem = {item}
                 isSelected={selectedItem === index}
                 onClick={() => {chooseitem(index)}}
             />
