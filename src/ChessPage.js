@@ -107,7 +107,7 @@ function Item({ label, isSelected, onClick, iconindex, indexitem}) {
 
 // Board组件，棋盘
 function Board({setclickinfo,setmindinfo}) {
-  const { copyarray,board,setBoard,selectedItem,displayimgid } = useContext(PollingContext);
+  const {copyarray,board,setBoard,selectedItem,displayimgid } = useContext(PollingContext);
 
   //判断board
   console.log("这是board组件。");
@@ -1015,7 +1015,7 @@ function ButtonColumn2({ label1, onClick1}) {
 
   function PollingComponent() {
     const [loopCounter, setLoopCounter] = useState(0);
-    const {setimportantinfo,setcopyarray,partnername, setpartnername,creatorname, setcreatorname,isPolling, setIsPolling, turnNum, setturnNum,cst, setcst,pst, setpst ,winner,setwinner,board, setBoard } = useContext(PollingContext);
+    const { setbattlepop,setimportantinfo,setcopyarray,partnername, setpartnername,creatorname, setcreatorname,isPolling, setIsPolling, turnNum, setturnNum,cst, setcst,pst, setpst ,winner,setwinner,board, setBoard } = useContext(PollingContext);
     
     const arraysAreEqual = (arr1, arr2) => {
       if (!arr1 || !arr2) return false; // 检查是否存在空数组
@@ -1055,6 +1055,7 @@ function ButtonColumn2({ label1, onClick1}) {
                 console.log(data.result.cst);
                 crstop = data.result.cst;
                 setcst(data.result.cst);
+                setbattlepop(data.result.cst);
               }
               if(pst!=data.result.pst){
                 console.log("pst!=data.pst");
@@ -1062,6 +1063,7 @@ function ButtonColumn2({ label1, onClick1}) {
                 console.log(data.result.pst);
                 pastop = data.result.pst;
                 setpst(data.result.pst);
+                setbattlepop(data.result.pst);
               }
               let newwinner = "";
               if(winner!=data.result.winner){
@@ -1070,7 +1072,7 @@ function ButtonColumn2({ label1, onClick1}) {
                 console.log(data.result.winner);
                 setwinner(data.result.winner);
                 newwinner = data.result.winner;
-                if((newwinner!="")&&((crstop==0)||(pastop==0))){
+                if((newwinner!="")&&((cst==0)||(pst==0))){
                   setimportantinfo(`一方认输，${newwinner}获胜。`);
                 }
               }
@@ -1261,6 +1263,7 @@ const [displayimgid,setdisplayimgid] = useState(0); //选择的棋子的变换�
 const [copyarray,setcopyarray] = useState(
   Array(size).fill().map(() => Array(size).fill(0))
 );  //生成一个14*14的全为0的备用二维数组
+const [battlepop,setbattlepop] = useState('还没来');
 
 //获取点击坐标
 const [clickinfo,setclickinfo] = useState('');
@@ -1364,11 +1367,11 @@ const chooseitem = (index) =>{
   
 
   return (
-    <PollingProvider value={{importantinfo,setimportantinfo,copyarray,setcopyarray,selectedItem,displayimgid,partnername, setpartnername,creatorname, setcreatorname,remindinfo,setremindinfo,isPolling, setIsPolling, turnNum, setturnNum,cst, setcst,pst, setpst ,winner,setwinner,board, setBoard}}>
+    <PollingProvider value={{setbattlepop,importantinfo,setimportantinfo,copyarray,setcopyarray,selectedItem,displayimgid,partnername, setpartnername,creatorname, setcreatorname,remindinfo,setremindinfo,isPolling, setIsPolling, turnNum, setturnNum,cst, setcst,pst, setpst ,winner,setwinner,board, setBoard}}>
     <PollingComponent />
     <div className="chess-page">
       <p>看看你有多聪明？</p>
-      <p>房间号：{gameid} 角色：{chara} 你是：{username}</p>
+      <p>房间号：{gameid} 角色：{chara} 你是：{username} 对手：{battlepop}</p>
       <p>你点了{clickinfo}， <span style={{color: 'red'}}>{importantinfo}</span></p>
       <Board setclickinfo={setclickinfo} setmindinfo ={setremindinfo}/>
 

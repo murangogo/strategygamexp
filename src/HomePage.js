@@ -30,6 +30,7 @@ function HomePage() {
   const handleViewHistory = () => {
     // 你可以在这里处理“历史棋局”的逻辑
     console.log('查看历史棋局');
+    navigate("/history");
   };
 
   const handleJoinGameConfirm = async () => {
