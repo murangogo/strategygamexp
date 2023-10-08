@@ -22,7 +22,7 @@ function HistoryPage() {
 
     return (
         <div>
-            <h2>历史记录</h2>
+            <h2>历史棋局</h2>
             {
                 loading ? 
                 <p>加载中......</p> :

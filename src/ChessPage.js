@@ -15,7 +15,7 @@ const colorMap = {
   1: '#EA5E59',
   2: '#8FA4F0',
   3: '#D4ABA9',
-  4: '#AFDFE6'
+  4: '#C1CBF2'
 };
 
 const banMap = {
