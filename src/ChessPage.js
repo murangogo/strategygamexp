@@ -636,19 +636,21 @@ function Board({setclickinfo,setmindinfo}) {
       case 15:
         switch(displayimgid+1){
           case 1:
-            if((col+3<size)){
+            if((col+4<size)){
                 boardtemple[row][col] = mychara + 2;
                 boardtemple[row][col+1] = mychara + 2;
                 boardtemple[row][col+2] = mychara + 2;
                 boardtemple[row][col+3] = mychara + 2;
+                boardtemple[row][col+4] = mychara + 2;
             }
             break;
           case 2:
-            if((row+3<size)){
+            if((row+4<size)){
                 boardtemple[row][col] = mychara + 2;
                 boardtemple[row+1][col] = mychara + 2;
                 boardtemple[row+2][col] = mychara + 2;
                 boardtemple[row+3][col] = mychara + 2;
+                boardtemple[row+4][col] = mychara + 2
             }
             break;
         }
