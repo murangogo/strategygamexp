@@ -78,8 +78,8 @@ html{
   font-size: 1.3rem;
   color: white;
   font-weight: 700;
-  background: rgb(250,199,183);
-  background: linear-gradient(90deg, rgba(250199,183) 0%,     rgba(93,79,87) 100%);
+  background: rgb(224,191,232);
+  background: linear-gradient(90deg, rgba(224,191,232) 0%,     rgba(187,226,240) 100%);
   border: 0px;
   cursor: pointer;
   transition: opacity 0.25s ease-out;
