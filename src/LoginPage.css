@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:600|Work+Sans:400,500,600,700&display=swap');
 
 body{
-  background: rgb(53,49,102);
-  background: linear-gradient(135deg, rgba(53,49,102) 0%,     rgba(160,36,103) 100%);
+  background: rgb(250,199,183);
+  background: linear-gradient(135deg, rgba(250,199,183) 0%,     rgba(93,79,87) 100%);
   font-family: "work sans";
 }
 
@@ -78,8 +78,8 @@ html{
   font-size: 1.3rem;
   color: white;
   font-weight: 700;
-  background: rgb(53,49,102);
-  background: linear-gradient(90deg, rgba(53,49,102) 0%,     rgba(160,36,103) 100%);
+  background: rgb(250,199,183);
+  background: linear-gradient(90deg, rgba(250199,183) 0%,     rgba(93,79,87) 100%);
   border: 0px;
   cursor: pointer;
   transition: opacity 0.25s ease-out;
