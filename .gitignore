@@ -6,6 +6,7 @@ node_modules/
 
 # Dotenv environment variables file
 .env
+.env.development.local
 
 # Logs
 npm-debug.log*
