@@ -2,6 +2,10 @@ import db from './dbconnect';
 
 export default async function handler(request, response) {
 try {
+    response.setHeader('Access-Control-Allow-Origin', '*'); // 允许任何来源
+    response.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    response.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
     const mytype = request.query.type;
     if(mytype=="check"){
         const result = await db.oneOrNone('SELECT num FROM download WHERE id = $1', [1]);
