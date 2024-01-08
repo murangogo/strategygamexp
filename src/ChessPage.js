@@ -1074,7 +1074,7 @@ function ButtonColumn2({ label1, onClick1}) {
                 console.log(data.result.winner);
                 setwinner(data.result.winner);
                 newwinner = data.result.winner;
-                if((newwinner!="")&&((cst==0)||(pst==0))){
+                if((newwinner!="")&&(((crstop==0)&&(cst==0))&&((pastop==0)&&(pst==0)))){
                   setimportantinfo(`一方认输，${newwinner}获胜。`);
                 }
               }
@@ -1089,7 +1089,7 @@ function ButtonColumn2({ label1, onClick1}) {
                 console.log(turnNum);
                 console.log(data.result.turn);
                 setturnNum(data.result.turn);
-                if((newwinner!="")||(winner!="")){
+                if((newwinner!="")&&(winner!="")){
                     //已经产生赢家，不需要判断和轮询。
                     setIsPolling(false);
                 }else{
