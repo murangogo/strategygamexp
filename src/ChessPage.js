@@ -1074,7 +1074,7 @@ function ButtonColumn2({ label1, onClick1}) {
                 console.log(data.result.winner);
                 setwinner(data.result.winner);
                 newwinner = data.result.winner;
-                if((newwinner!="")&&((cst==0)||(pst==0))){
+                if((newwinner!="")&&((cst==0)&&(pst==0))){
                   setimportantinfo(`一方认输，${newwinner}获胜。`);
                 }
               }
